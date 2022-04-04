@@ -38,5 +38,5 @@ jobs:
       env:
         CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
       with: 
-        charts_repo_url: https://kahootali.github.io/activemq-artemis-helm/
+        charts_repo_url: https://tarabutgateway.github.io/activemq-artemis-helm/
         charts_dir: stable
