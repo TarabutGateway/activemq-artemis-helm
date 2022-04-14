@@ -86,7 +86,7 @@ persistence:
   ##
   # storageClass:
   accessMode: ReadWriteOnce
-  size: 8Gi
+  size: 16Gi
 
 ## Configure resource requests and limits
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
