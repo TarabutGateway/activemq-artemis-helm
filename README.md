@@ -85,7 +85,8 @@ The following tables lists the configurable parameters of the MySQL chart and th
 | `image.pullSecret`                    | Secret to pull image                     | ``                                             |
 | `artemisUser`                        | Username of new user to create.       | `artemis`                                                  |
 | `artemisPassword`                    | Password for the new user.            | `simetraehcapa`                                            |
-| `replicas`                           | Number of nodes in the cluster.       | 2                                                          |
+| `masterReplicas`                           | Number of master nodes in the cluster.       | 2                                                          |
+| `slaveReplicas`                           | Number of slave nodes in the cluster.       | 2                                                          |
 | `configmap.extraConfig`                        | Extra config if needed in generated configmap            |    ""                                              |
 | `deployment.securityContext`                        | Security Context for Master & Slave statefulsets             |    {}                                              |
 | `deployment.masterLivenessProbe`                        | Liveness probe for Master             |    Check Values                                              |
