@@ -22,11 +22,13 @@ data:
         {{- $releaseNamespace := .Release.Namespace -}}
 
         <connectors>
-          {{ range $i,$t := until (int .Values.replicas) }}
-          {{ range tuple "master" "slave" }}
-          <connector name="{{ $fullname }}-{{ . }}-{{ $i }}">tcp://{{ $fullname }}-{{ . }}-{{ $i }}.{{ $releaseName }}-{{ . }}.{{ $releaseNamespace }}.svc.cluster.local:61616</connector>
-          {{ end }}
+          {{ range $i,$t := until (int .Values.masterReplicas) }}
+          <connector name="{{ $fullname }}-master-{{ $i }}">tcp://{{ $fullname }}-master-{{ $i }}.{{ $releaseName }}-master.{{ $releaseNamespace }}.svc.cluster.local:61616</connector>
           {{end}}
+          {{ range $i,$t := until (int .Values.slaveReplicas) }}
+          <connector name="{{ $fullname }}-slave-{{ $i }}">tcp://{{ $fullname }}-slave-{{ $i }}.{{ $releaseName }}-slave.{{ $releaseNamespace }}.svc.cluster.local:61616</connector>
+          {{end}}
+
         </connectors>
 
 
@@ -43,10 +45,11 @@ data:
             <max-hops>1</max-hops>
 
             <static-connectors>
-            {{ range $i,$t := until (int .Values.replicas) }}
-              {{ range tuple "master" "slave" }}
-                <connector-ref>{{ $fullname }}-{{ . }}-{{ $i }}</connector-ref>
-              {{ end }}
+            {{ range $i,$t := until (int .Values.masterReplicas) }}
+                <connector-ref>{{ $fullname }}-master-{{ $i }}</connector-ref>
+            {{ end }}
+            {{ range $i,$t := until (int .Values.slaveReplicas) }}
+                <connector-ref>{{ $fullname }}-slave-{{ $i }}</connector-ref>
             {{ end }}
             </static-connectors>
 
