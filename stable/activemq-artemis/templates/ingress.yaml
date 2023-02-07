@@ -11,7 +11,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   rules:
-    - host: {{ include "artemis.fullname" . }}.{{ .Values.environment }}.tarabutgateway.io
+    - host: {{ .Values.dashboardUrl }}
       http:
         paths:
           - path: /
@@ -23,5 +23,5 @@ spec:
                   number: 8161
   tls:
     - hosts:
-        - {{ include "artemis.fullname" . }}.{{ .Values.environment }}.tarabutgateway.io
+        - {{ .Values.dashboardUrl }}
       secretName: {{ .Release.Namespace }}-{{ include "artemis.fullname" . }}-tls-cert

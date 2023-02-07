@@ -129,4 +129,4 @@ prometheus:
       selector:
         prometheus: kube-prometheus
 
-environment: {}
+dashboardUrl: artemis.tarabutgateway.io
