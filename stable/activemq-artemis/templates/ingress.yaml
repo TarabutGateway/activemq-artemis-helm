@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    kubernetes.io/ingress.class: internal-ingress
+  name: {{ include "artemis.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  rules:
+    - host: {{ .Values.dashboardUrl }}
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: {{ include "artemis.fullname" . }}
+                port:
+                  number: 8161
+  tls:
+    - hosts:
+        - {{ .Values.dashboardUrl }}
+      secretName: {{ .Release.Namespace }}-{{ include "artemis.fullname" . }}-tls-cert
